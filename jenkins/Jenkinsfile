@@ -35,23 +35,11 @@ pipeline {
                         fields: [
                             project: [key: env.JIRA_PROJECT_KEY],
                             summary: 'New issue from Jenkins',
-                            description: '''This is a new issue from Jenkins
-                            Build Number: ${env.BUILD_NUMBER}
-                            Branch: ${env.BRANCH_NAME}
-                            Duration: ${env.currentBuild.durationString}
-                            Failed Stage: ${env.STAGE_NAME}
-                            Build URL: ${env.BUILD_URL}
-                            ''',
+                            description: 'new issue from jenkins' + env.BUILD_NUMBER + ' - ' + env.BRANCH_NAME + ' - ' + env.currentBuild.durationString + ' - ' + env.STAGE_NAME + ' - ' + env.BUILD_URL,
                             issuetype: [name: 'Bug']
                         ]
                     ]
                 }
-            }
-        }
-        
-        stage('clean workspace') {
-            steps {
-                cleanWs()
             }
         }
     }
