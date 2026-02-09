@@ -35,7 +35,13 @@ pipeline {
                         fields: [
                             project: [key: env.JIRA_PROJECT_KEY],
                             summary: 'New issue from Jenkins',
-                            description: 'This is a new issue from Jenkins',
+                            description: 'This is a new issue from Jenkins
+                            Build Number: ${BUILD_NUMBER}
+                            Branch: ${BRANCH_NAME}
+                            Duration: ${BUILD_DURATION}
+                            Failed Stage: ${FAILED_STAGE}
+                            Build URL: ${BUILD_URL}
+                            ',
                             issuetype: [name: 'Bug']
                         ]
                     ]
