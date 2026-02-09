@@ -2,7 +2,8 @@ pipeline {
     agent none  // No default agent, each stage uses its own Docker agent or Jenkins agent
     
     environment {
-        JIRA_PROJECT_KEY = 'PROJ'
+        // JIRA_PROJECT_KEY = 'PROJ'
+        JIRA_PROJECT_KEY = 'MP'
     }
     
     stages {
@@ -27,8 +28,15 @@ pipeline {
             steps {
                 script {
                     echo 'Creating issue on JIRA'
+                    jiraNewIssue site: 'MyJiraSite', issue: [
+                        fields: [
+                            project: [key: env.JIRA_PROJECT_KEY],
+                            summary: 'New issue from Jenkins',
+                            issuetype: [name: 'Bug']
+                        ]
+                    ]
                 }
             }
         }
-    }  
+    }
 }
