@@ -61,10 +61,6 @@ jobs:
     runs-on: ubuntu-24.04
     needs: Explore-GitHub-Actions-2
     steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} ${{ runner.os.version }} server hosted by GitHub!"
-      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      
       - name: Check out repository code
         uses: actions/checkout@v5
       
@@ -95,6 +91,44 @@ jobs:
       - name: Show secrets
         run: |
           echo "my secret is: ${{ secrets.MY_API_TOKEN }}"
+
+  Deploy-to-Docker:
+    runs-on: ubuntu-24.04
+    needs: Build-Python-Project
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v5
+      - name: Deploy to Docker
+        run: |
+          echo "Deploying to Docker"
+          docker build -t ${{ secrets.DOCKER_IMAGE }} .
+          docker push ${{ secrets.DOCKER_IMAGE }}
+
+  Deploy-to-Terraform:
+    runs-on: ubuntu-24.04
+    needs: Build-Python-Project
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v5
+      - name: Deploy to Terraform
+        run: |
+          echo "Deploying to Terraform"
+          terraform init
+          terraform plan
+          terraform apply
+
+  Deploy-to-AWS:
+    runs-on: ubuntu-24.04
+    needs: Build-Python-Project
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v5
+      - name: Deploy to AWS
+        run: |
+          echo "Deploying to AWS"
+          aws ecs update-service --cluster ${{ secrets.AWS_CLUSTER }} --service ${{ secrets.AWS_SERVICE }} --force-new-deployment
+          aws ecs update-service --cluster ${{ secrets.AWS_CLUSTER }} --service ${{ secrets.AWS_SERVICE }} --force-new-deployment
+          aws ecs update-service --cluster ${{ secrets.AWS_CLUSTER }} --service ${{ secrets.AWS_SERVICE }} --force-new-deployment
 
   Deploy-with-Ansible:
       runs-on: ubuntu-24.04
