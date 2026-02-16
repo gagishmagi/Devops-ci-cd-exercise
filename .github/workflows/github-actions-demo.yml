@@ -26,6 +26,7 @@ jobs:
 
   Explore-GitHub-Actions-2:
     runs-on: ubuntu-24.04
+    needs: Explore-GitHub-Actions
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
