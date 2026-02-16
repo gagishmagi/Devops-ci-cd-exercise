@@ -79,7 +79,7 @@ jobs:
 
       - name: Run tests
         run: |
-          pytest tests/unit/ -v --cov=app --cov-report=html
+          pytest tests/unit/ -v --cov=app --cov-report=html 
 
       - name: Run integration tests
         run: |
@@ -88,6 +88,13 @@ jobs:
       - name: Run E2E tests
         run: |
           pytest tests/e2e/ -v
+
+  Show-secrets:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Show secrets
+        run: |
+          echo "my secret is: ${{ secrets.MY_API_TOKEN }}"
 
   Deploy-with-Ansible:
       runs-on: ubuntu-24.04
