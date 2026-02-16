@@ -9,12 +9,13 @@ on:
   pull_request:
     branches: [ main, develop ]
   workflow_dispatch:
+  
   # schedule:
   #   - cron: '0 0 * * *'
     
 
 env:
-  PYTHON_VERSION: '3.9'
+  PYTHON_VERSION: ${{ env.PYTHON_VERSION }}
 
 jobs:
   Explore-GitHub-Actions:
