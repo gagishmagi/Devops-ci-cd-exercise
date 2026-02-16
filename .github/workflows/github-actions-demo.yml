@@ -14,8 +14,8 @@ on:
   #   - cron: '0 0 * * *'
     
 
-env:
-  PYTHON_VERSION: ${{ env.PYTHON_VERSION }}
+# env:
+#   PYTHON_VERSION: '3.9'
 
 jobs:
   Explore-GitHub-Actions:
