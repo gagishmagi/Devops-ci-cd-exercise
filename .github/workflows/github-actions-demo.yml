@@ -100,6 +100,8 @@ jobs:
         uses: actions/checkout@v5
       - name: Deploy to Docker
         run: |
+          apt-get install docker.io
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           echo "Deploying to Docker"
           docker build -t ${{ secrets.DOCKER_IMAGE }} .
           docker push ${{ secrets.DOCKER_IMAGE }}
@@ -113,6 +115,7 @@ jobs:
       - name: Deploy to Terraform
         run: |
           echo "Deploying to Terraform"
+          apt-get install terraform
           terraform init
           terraform plan
           terraform apply
